@@ -1,14 +1,16 @@
 """Turn raw Canvas planner items into a classified to-do list."""
 
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Planner types that represent work to hand in (calendar events / announcements are noise).
 WORK_TYPES = frozenset({"assignment", "quiz", "discussion_topic", "planner_note"})
 
 MISSING = "missing"  # Canvas itself flags it missing
 PAST_DUE = "past_due"  # due date passed, not submitted on Canvas (may be on Gradescope etc.)
+THIS_WEEK = "this_week"  # due within the next WEEK_DAYS
 UPCOMING = "upcoming"
+WEEK_DAYS = 7
 
 
 @dataclass(frozen=True)
@@ -35,8 +37,15 @@ def parse_due(item: dict) -> datetime | None:
 def classify(item: dict, now: datetime) -> str:
     if (item.get("submissions") or {}).get("missing"):
         return MISSING
-    due = parse_due(item)
-    return PAST_DUE if due and due < now else UPCOMING
+    return status_for(parse_due(item), now)
+
+
+def status_for(due: datetime | None, now: datetime) -> str:
+    if due is None:
+        return UPCOMING
+    if due < now:
+        return PAST_DUE
+    return THIS_WEEK if due <= now + timedelta(days=WEEK_DAYS) else UPCOMING
 
 
 def to_tasks(raw: list[dict], base_url: str, now: datetime) -> list[Task]:

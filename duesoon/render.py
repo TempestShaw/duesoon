@@ -3,12 +3,13 @@
 from datetime import datetime
 from html import escape
 
-from .items import MISSING, PAST_DUE, UPCOMING, Task
+from .items import MISSING, PAST_DUE, THIS_WEEK, UPCOMING, Task
 
 SECTIONS = (
     (MISSING, "Missing"),
     (PAST_DUE, "Past due, not submitted on Canvas"),
-    (UPCOMING, "Upcoming"),
+    (THIS_WEEK, "This week"),
+    (UPCOMING, "Later"),
 )
 SOON_HOURS = 48
 
@@ -50,14 +51,14 @@ HTML_TEMPLATE = """<!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Due Soon</title>
 <style>
-:root{{--bg:#fafafa;--fg:#1a1a1a;--muted:#6b6b6b;--card:#fff;--line:#e5e5e5;--red:#c62828;--amber:#b26a00;--blue:#1f5fbf}}
-@media (prefers-color-scheme:dark){{:root{{--bg:#151515;--fg:#eee;--muted:#9a9a9a;--card:#1f1f1f;--line:#333;--red:#ef7a7a;--amber:#e0a84a;--blue:#7aa7ef}}}}
+:root{{--bg:#fafafa;--fg:#1a1a1a;--muted:#6b6b6b;--card:#fff;--line:#e5e5e5;--red:#c62828;--accent:#c2410c;--amber:#b26a00;--blue:#1f5fbf}}
+@media (prefers-color-scheme:dark){{:root{{--bg:#151515;--fg:#eee;--muted:#9a9a9a;--card:#1f1f1f;--line:#333;--red:#ef7a7a;--accent:#fb923c;--amber:#e0a84a;--blue:#7aa7ef}}}}
 body{{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif}}
 main{{max-width:860px;margin:0 auto;padding:24px 16px}}
 h1{{margin:0}} .updated{{color:var(--muted);margin:4px 0 24px}}
 section{{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:20px;padding:4px 16px}}
 h2{{font-size:16px}} h2 b{{color:var(--muted);font-weight:500}}
-.missing h2{{color:var(--red)}} .past_due h2{{color:var(--amber)}} .upcoming h2{{color:var(--blue)}}
+.missing h2{{color:var(--red)}} .past_due h2{{color:var(--amber)}} .this_week h2{{color:var(--accent)}} .upcoming h2{{color:var(--blue)}}
 ul{{list-style:none;margin:0;padding:0}}
 li{{display:grid;grid-template-columns:130px 1fr;gap:2px 12px;padding:10px 0;border-top:1px solid var(--line)}}
 li time{{color:var(--muted);font-variant-numeric:tabular-nums}} li span{{grid-column:2;color:var(--muted);font-size:13px}}

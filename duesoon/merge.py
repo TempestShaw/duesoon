@@ -4,7 +4,7 @@ import re
 from datetime import datetime, timedelta
 
 from .gradescope import GsAssignment
-from .items import PAST_DUE, UPCOMING, Task
+from .items import Task, status_for
 
 DEFAULT_LOOKBACK_DAYS = 60
 _NON_ALNUM = re.compile(r"[^a-z0-9]+")
@@ -29,7 +29,7 @@ def merge(
             course=f"{a.course} (Gradescope)",
             due=a.due,
             url=a.url,
-            status=PAST_DUE if a.due < now else UPCOMING,
+            status=status_for(a.due, now),
         )
         for a in gs
         if not a.submitted and a.due and since <= a.due <= until and norm(a.title) not in known

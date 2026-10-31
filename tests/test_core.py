@@ -24,7 +24,7 @@ def test_filters_and_classifies():
     raw = [
         item("missing", -3, missing=True),
         item("pastdue", -1),
-        item("future", 2),
+        item("future", 9),
         item("done", 1, submitted=True),
         item("graded", -5, graded=True),
         item("event", 1, ptype="calendar_event"),
@@ -54,10 +54,19 @@ def test_render_escapes_html():
     tasks = to_tasks([item("<script>", 1)], BASE, NOW)
     html = render_html(tasks, NOW)
     assert "<script>" not in html and "&lt;script&gt;" in html
-    assert "Upcoming (1)" in render_text(tasks)
+    assert "This week (1)" in render_text(tasks)
 
 
 def test_load_env(tmp_path):
     (tmp_path / ".env").write_text('# c\nCANVAS_TOKEN="abc"\nCANVAS_URL=https://x\n')
     assert load_env(tmp_path / ".env") == {"CANVAS_TOKEN": "abc", "CANVAS_URL": "https://x"}
     assert load_env(tmp_path / "nope") == {}
+
+
+def test_this_week_split():
+    from duesoon.items import THIS_WEEK
+
+    raw = [item("soon", 6), item("later", 8), item("past", -1)]
+    got = {t.title: t.status for t in to_tasks(raw, BASE, NOW)}
+    assert got == {"soon": THIS_WEEK, "later": UPCOMING, "past": PAST_DUE}
+    assert "This week (1)" in render_text(to_tasks(raw, BASE, NOW))
