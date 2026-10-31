@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>duesoon</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏰</text></svg>">
+<style>
+:root{--bg:#fbfaf7;--fg:#1b1b1b;--muted:#666;--card:#fff;--line:#e7e4dc;--accent:#c2410c;--accent-bg:#fff1e8;--code:#f3f1ec;--red:#c62828;--amber:#b26a00;--blue:#1f5fbf}
+@media (prefers-color-scheme:dark){:root{--bg:#141414;--fg:#ececec;--muted:#9a9a9a;--card:#1d1d1d;--line:#2f2f2f;--accent:#fb923c;--accent-bg:#2a1b10;--code:#232323;--red:#ef7a7a;--amber:#e0a84a;--blue:#7aa7ef}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 ui-sans-serif,system-ui,-apple-system,sans-serif}
+main{max-width:880px;margin:0 auto;padding:0 16px 64px}
+header{padding:72px 0 40px}
+h1{font-size:clamp(36px,7vw,60px);line-height:1.05;margin:16px 0 12px;letter-spacing:-.02em}
+h1 em{font-style:normal;color:var(--accent)}
+.brand{font-weight:700;color:var(--muted)}
+.tagline{font-size:20px;color:var(--muted);margin:0}
+.chips{list-style:none;padding:0;margin:20px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.chips li{background:var(--accent-bg);color:var(--accent);border-radius:99px;padding:4px 12px;font-size:14px;font-weight:600}
+footer{color:var(--muted);border-top:1px solid var(--line);padding-top:20px;margin-top:56px;font-size:14px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-block;padding:10px 18px;border-radius:8px;font-weight:600;text-decoration:none;border:1px solid var(--line);color:var(--fg)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+h2{font-size:24px;margin:56px 0 16px;letter-spacing:-.01em}
+.preview{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 18px;font-size:14px}
+.preview h3{font-size:14px;margin:12px 0 4px}
+.preview .m{color:var(--red)} .preview .u{color:var(--blue)}
+.preview li{display:grid;grid-template-columns:110px 1fr;gap:10px;padding:6px 0;border-top:1px solid var(--line)}
+.preview ul{list-style:none;margin:0 0 6px;padding:0}
+.preview time{color:var(--muted);font-variant-numeric:tabular-nums} .preview .soon time{color:var(--red);font-weight:600}
+ol.steps{padding:0;list-style:none;counter-reset:s;margin:0}
+ol.steps>li{counter-increment:s;position:relative;padding-left:44px;margin-bottom:22px}
+ol.steps>li::before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--accent-bg);color:var(--accent);font-weight:700;display:grid;place-items:center}
+.code{position:relative;background:var(--code);border-radius:8px;margin-top:8px}
+.code pre{margin:0;padding:12px 70px 12px 14px;overflow-x:auto;font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+.copy{position:absolute;top:8px;right:8px;font:12px system-ui;padding:4px 8px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
+.tabs{display:flex;gap:6px;margin-bottom:4px}
+.tabs button{font:14px system-ui;padding:6px 12px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--card);color:var(--fg);font-weight:600}
+a{color:var(--accent)}
+@media (max-width:520px){.preview li{grid-template-columns:1fr;gap:0}}
+</style>
+</head>
+<body><main>
+
+<header>
+  <span class="brand">⏰ duesoon</span>
+  <h1>Never <em>missing</em> again.</h1>
+  <p class="tagline">Canvas + Gradescope. One list.</p>
+  <div class="cta">
+    <a class="btn primary" href="#install">Install</a>
+    <a class="btn" href="https://github.com/TempestShaw/duesoon">GitHub</a>
+  </div>
+</header>
+
+<div class="preview" aria-label="Example dashboard">
+  <h3 class="m">Missing 1</h3>
+  <ul><li><time>Mon 10-26 23:59</time><span>Sprint Report: Week 8 · Capstone</span></li></ul>
+  <h3 class="u">Upcoming 3</h3>
+  <ul>
+    <li class="soon"><time>Fri 10-30 23:59</time><span>Recitation 2 · Decision Analysis</span></li>
+    <li><time>Sun 11-01 23:59</time><span>Homework 4: Query Execution · Databases</span></li>
+    <li><time>Mon 11-02 14:00</time><span>Lab 8: Android · Distributed Systems</span></li>
+  </ul>
+</div>
+
+<ul class="chips">
+  <li>🚨 Missing first</li><li>✅ Submitted work hidden</li><li>📅 Calendar sync</li><li>🔒 Stays on your laptop</li>
+</ul>
+
+<h2 id="install">Three commands. Done.</h2>
+<ol class="steps">
+  <li><b>Install</b>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-cmd="uv tool install git+https://github.com/TempestShaw/duesoon">uv</button>
+      <button role="tab" aria-selected="false" data-cmd="pipx install git+https://github.com/TempestShaw/duesoon">pipx</button>
+      <button role="tab" aria-selected="false" data-cmd="python3 -m pip install --user git+https://github.com/TempestShaw/duesoon">pip</button>
+    </div>
+    <div class="code"><pre id="install-cmd">uv tool install git+https://github.com/TempestShaw/duesoon</pre><button class="copy">Copy</button></div>
+  </li>
+  <li><b>Connect</b><div class="code"><pre>duesoon setup</pre><button class="copy">Copy</button></div></li>
+  <li><b>Check</b><div class="code"><pre>duesoon --open</pre><button class="copy">Copy</button></div></li>
+</ol>
+
+<h2>Or just ask Claude.</h2>
+<div class="code"><pre>mkdir -p ~/.claude/skills/duesoon && curl -fsSL https://raw.githubusercontent.com/TempestShaw/duesoon/main/skills/duesoon/SKILL.md -o ~/.claude/skills/duesoon/SKILL.md</pre><button class="copy">Copy</button></div>
+
+<footer>Made by students, for students · <a href="https://github.com/TempestShaw/duesoon">GitHub</a></footer>
+</main>
+<script>
+document.querySelectorAll(".copy").forEach(btn => btn.addEventListener("click", async () => {
+  const text = btn.previousElementSibling.textContent;
+  try { await navigator.clipboard.writeText(text); btn.textContent = "Copied"; }
+  catch { btn.textContent = "Select & copy"; }
+  setTimeout(() => (btn.textContent = "Copy"), 1500);
+}));
+document.querySelectorAll(".tabs button").forEach(tab => tab.addEventListener("click", () => {
+  document.querySelectorAll(".tabs button").forEach(t => t.setAttribute("aria-selected", t === tab));
+  document.getElementById("install-cmd").textContent = tab.dataset.cmd;
+}));
+</script>
+</body>
+</html>

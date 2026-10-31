@@ -1,47 +1,52 @@
-# canvas-todo
+# duesoon
 
-Never miss a Canvas assignment. One command lists everything you still owe — missing, past due, and upcoming — and can write a small HTML dashboard. Pure Python standard library, no browser automation.
+**One list of everything you still owe on Canvas and Gradescope.** Missing work comes first. Lecture events, announcements and graded work are filtered out. Runs on your laptop, uses only the Python standard library, and does no browser automation.
 
-## Setup
+🌐 **Website:** https://tempestshaw.github.io/duesoon/
 
-1. Canvas → **Account → Settings → + New Access Token**.
-2. `cp .env.example .env` and paste the token (and your school's Canvas URL).
+## Install
 
-`.env` is gitignored. Treat the token like a password.
+```bash
+uv tool install git+https://github.com/TempestShaw/duesoon     # or: pipx install ...
+duesoon setup                                                   # paste your Canvas token
+duesoon --open                                                  # dashboard in your browser
+```
+
+Create the Canvas token under **Account → Settings → + New Access Token**. Gradescope is optional. If you sign in through school SSO, first set a Gradescope password with "Forgot your password?".
 
 ## Usage
 
-```bash
-python3 -m canvas_todo                       # next 30 days, text output
-python3 -m canvas_todo --days 14
-python3 -m canvas_todo --html dashboard.html --open
-```
+| Command | What it does |
+|---------|--------------|
+| `duesoon` | Text list for the next 30 days |
+| `duesoon --days 7` | Change the window |
+| `duesoon --open` | Write the HTML dashboard and open it |
+| `duesoon --html out.html` | Write the dashboard to a specific path |
+| `duesoon --ics ~/duesoon.ics` | Calendar file with a 24-hour reminder per deadline |
+| `duesoon setup` | (Re)connect Canvas / Gradescope |
 
-Sections:
+The list has three sections:
 
 - **Missing**: Canvas has marked the assignment missing.
-- **Past due**: the due date passed and nothing was submitted *on Canvas*. Work handed in on Gradescope or elsewhere shows up here, so check before you panic.
-- **Upcoming**: due within the window. Items due within 48 hours are highlighted in the dashboard.
+- **Past due, not submitted on Canvas**: the due date passed and Canvas has no submission. Work turned in on Gradescope is removed automatically when Gradescope is connected.
+- **Upcoming**: due within the window. Items due within 48 hours are highlighted.
 
-Calendar events, announcements, and graded or submitted work are hidden. Anything you tick "mark as done" in the Canvas planner is hidden too.
+## Claude Code skill
 
-## Gradescope (optional)
+```bash
+mkdir -p ~/.claude/skills/duesoon && curl -fsSL https://raw.githubusercontent.com/TempestShaw/duesoon/main/skills/duesoon/SKILL.md -o ~/.claude/skills/duesoon/SKILL.md
+```
 
-Gradescope has no official API, so canvas-todo logs in with your email and password and reads the course pages. Fill `GRADESCOPE_EMAIL` and `GRADESCOPE_PASSWORD` in `.env`. If you sign in through school SSO, first set a Gradescope password with "Forgot your password?" on the login page.
+Then ask Claude "what homework am I missing?". It installs duesoon if needed and summarizes the list. You type secrets into `duesoon setup` yourself, never into the chat.
 
-With Gradescope enabled:
+## Privacy
 
-- Canvas items already submitted on Gradescope (matched by title) disappear from the list.
-- Open Gradescope work that isn't on Canvas is added, tagged `(Gradescope)`.
+Settings are stored in `~/.config/duesoon/config.env` with mode 600. A `.env` file in the current directory or environment variables also work. Your data goes only to your Canvas server and to gradescope.com. Gradescope has no official API, so duesoon logs in and reads the course pages. That part may break if Gradescope changes its layout.
 
-If the login fails, the tool prints a warning and falls back to Canvas only. The parser relies on Gradescope's page layout and may break when that changes.
-
-## Tests
+## Development
 
 ```bash
 python3 -m pytest
 ```
 
-## License
-
-MIT
+MIT licensed. Not affiliated with Instructure or Gradescope.

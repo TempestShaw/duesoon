@@ -48,7 +48,7 @@ def render_html(tasks: list[Task], now: datetime) -> str:
 HTML_TEMPLATE = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Canvas To-Do</title>
+<title>Due Soon</title>
 <style>
 :root{{--bg:#fafafa;--fg:#1a1a1a;--muted:#6b6b6b;--card:#fff;--line:#e5e5e5;--red:#c62828;--amber:#b26a00;--blue:#1f5fbf}}
 @media (prefers-color-scheme:dark){{:root{{--bg:#151515;--fg:#eee;--muted:#9a9a9a;--card:#1f1f1f;--line:#333;--red:#ef7a7a;--amber:#e0a84a;--blue:#7aa7ef}}}}
@@ -65,7 +65,7 @@ li.soon time{{color:var(--red);font-weight:600}} li.empty{{display:block;color:v
 a{{color:inherit;text-decoration:none}} a:hover{{text-decoration:underline}}
 @media (max-width:520px){{li{{grid-template-columns:1fr}} li span{{grid-column:1}}}}
 </style></head><body><main>
-<h1>Canvas To-Do</h1><p class="updated">Updated {updated}</p>
+<h1>Due Soon</h1><p class="updated">Updated {updated}</p>
 {sections}
 </main></body></html>
 """

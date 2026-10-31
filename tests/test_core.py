@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta, timezone
 
-from canvas_todo.api import next_link
-from canvas_todo.cli import load_env
-from canvas_todo.items import MISSING, PAST_DUE, UPCOMING, to_tasks
-from canvas_todo.render import render_html, render_text
+from duesoon.api import next_link
+from duesoon.config import read_env_file as load_env
+from duesoon.items import MISSING, PAST_DUE, UPCOMING, to_tasks
+from duesoon.render import render_html, render_text
 
 NOW = datetime(2026, 10, 30, 12, tzinfo=timezone.utc)
 BASE = "https://canvas.example.edu"

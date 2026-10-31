@@ -1,8 +1,8 @@
 from datetime import datetime, timezone
 
-from canvas_todo.gradescope import GsAssignment, parse_assignments, parse_courses
-from canvas_todo.items import PAST_DUE, UPCOMING, Task
-from canvas_todo.merge import merge
+from duesoon.gradescope import GsAssignment, parse_assignments, parse_courses
+from duesoon.items import PAST_DUE, UPCOMING, Task
+from duesoon.merge import merge
 
 NOW = datetime(2026, 10, 30, 12, tzinfo=timezone.utc)
 

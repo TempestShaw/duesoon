@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "duesoon"
+version = "0.1.0"
+description = "Everything you still owe on Canvas and Gradescope, in one list."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+duesoon = "duesoon.cli:main"
+
+[project.urls]
+Homepage = "https://tempestshaw.github.io/duesoon/"
+Source = "https://github.com/TempestShaw/duesoon"
+
+[tool.setuptools]
+packages = ["duesoon"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
